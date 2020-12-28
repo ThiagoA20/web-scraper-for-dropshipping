@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: cx-Freeze
+Version: 6.4.2
+Summary: Create standalone executables from Python scripts
+Home-page: https://marcelotduarte.github.io/cx_Freeze
+Author: Anthony Tuininga
+Author-email: anthony.tuininga@gmail.com
+Maintainer: Marcelo Duarte @marcelotduarte
+License: Python Software Foundation License
+Project-URL: Bug Tracker, https://github.com/marcelotduarte/cx_Freeze/issues
+Project-URL: CI: GitHub Workflows, https://github.com/marcelotduarte/cx_Freeze/actions?query=branch:master
+Project-URL: Source Code, https://github.com/marcelotduarte/cx_Freeze
+Keywords: freeze cx-freeze python
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Python Software Foundation License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: C
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Software Distribution
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: importlib-metadata (>=3.1.1)
+
+# About cx\_Freeze
+
+**cx\_Freeze** creates standalone executables from Python scripts, with the same
+performance, is cross-platform and should work on any platform that Python
+itself works on.
+
+It supports [Python](https://www.python.org/) 3.6 up to 3.9.
+
+If you need support for older Python check the documentation.
+
+# Highlights of Version 6.2 up to 6.4:
+- Support for metadata to use by pkg_resources and importlib.metadata
+- Namespace packages are automatically detected
+- Enhanced support for Python 3.8 and Intial support for Python 3.9
+- Better support for MSYS2
+- Improvements for multiprocessing
+- More integrated to setuptools
+- Various bug fixes.
+
+# Installation
+
+In a virtual environment, install by issuing the command:
+
+```
+pip install cx_Freeze --upgrade
+```
+
+For other options, check the documentation.
+
+# Documentation
+
+The official documentation is available
+[here](https://cx-freeze.readthedocs.io).
+
+If you need help you can also ask on the official mailing list:
+https://lists.sourceforge.net/lists/listinfo/cx-freeze-users
+
+# License
+
+cx\_Freeze uses a license derived from the
+[Python Software Foundation License](https://www.python.org/psf/license).
+You can read the cx\_Freeze license in the
+[documentation](https://cx-freeze.readthedocs.io/en/latest/license.html)
+or in the [source repository](doc/src/license.rst).
+
+

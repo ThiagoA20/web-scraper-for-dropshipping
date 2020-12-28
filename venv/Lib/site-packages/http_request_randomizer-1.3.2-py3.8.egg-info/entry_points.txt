@@ -1,0 +1,3 @@
+[console_scripts]
+proxyList = http_request_randomizer.requests.runners.proxyList:main
+
