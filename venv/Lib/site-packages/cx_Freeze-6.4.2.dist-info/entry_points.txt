@@ -1,0 +1,4 @@
+[console_scripts]
+cxfreeze = cx_Freeze.main:main
+cxfreeze-quickstart = cx_Freeze.setupwriter:main
+
