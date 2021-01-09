@@ -30,8 +30,7 @@ prefs = {
 option.add_experimental_option("prefs", prefs)
 option.add_experimental_option('excludeSwitches', ['enable-logging'])
 option.add_argument("--lang=en")
-option.add_argument("--headless")
-"""option.set_preference('dom.webnotifications.enabled', False)"""
+"""option.add_argument("--headless")"""
 option.add_argument("--window-size=1920,1080")
 
 

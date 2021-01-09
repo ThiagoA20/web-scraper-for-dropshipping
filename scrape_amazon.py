@@ -12,7 +12,65 @@ import time
 def amazon(product, driver):
     action = ActionChains(driver)
     driver.get(product.url)
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='nav-global-location-slot']/span/a"))).click()
+    time.sleep(4)
+    # catch a list of bullet points as selenium element
+    try:
+        driver.execute_script('window.scrollTo(0, 500)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 700)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 900)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 1000)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 1200)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 1350)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 1500)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 1600)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 1760)')
+        time.sleep(0.5)
+        driver.execute_script('window.scrollTo(0, 2130)')
+        time.sleep(1.5)
+        try:
+            description = driver.find_element_by_css_selector("#productDescription_feature_div")
+        except NoSuchElementException:
+            try:
+                description = driver.find_element_by_xpath("//*[@id='aplus']/div")
+            except NoSuchElementException:
+                description = "not found"
+        driver.execute_script("window.scrollTo(0, 0)")
+        try:
+            source_code = description.get_attribute("outerHTML")
+        except AttributeError:
+            source_code = description
+        product.description = source_code
+        bullet_points = driver.find_element_by_css_selector("#feature-bullets").find_elements_by_tag_name("li")
+        if not bullet_points:
+            for i in range(6):
+                product.append_variant(" ", "bullet")
+        else:
+            for bp in bullet_points:
+                product.append_variant(bp.text, "bullet")
+    except:
+        for i in range(6):
+            product.append_variant("not found", "bullet")
+    driver.execute_script("window.scrollTo(0, 0)")
+    product.sku = re.search(r'/dp/([A-Z][0-9])\w+', product.url).group(0)[4:]
+    try:
+        product.name = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[5]/div[5]/div[4]/div[1]/div"))).text
+    except TimeoutException:
+        product.name = "not found"
+    time.sleep(1)
+    try:
+        product.main_image = driver.find_element_by_css_selector("#landingImage").get_attribute("src").split("_AC_")[0] + "_AC_SX650_.jpg"
+    except NoSuchElementException:
+        product.main_image = "not found"
+    WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='nav-global-location-slot']/span/a"))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='GLUXCountryValue']"))).click()
     time.sleep(5)
     regions = driver.find_elements_by_xpath("//*[@id='a-popover-5']/div/div/ul/li")
@@ -27,46 +85,6 @@ def amazon(product, driver):
     except MoveTargetOutOfBoundsException:
         pass
     time.sleep(3)
-    product.sku = re.search(r'/dp/([A-Z][0-9])\w+', product.url).group(0)[4:]
-    try:
-        product.name = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[5]/div[5]/div[4]/div[1]/div"))).text
-    except TimeoutException:
-        product.name = "not found"
-    time.sleep(1)
-    try:
-        product.main_image = driver.find_element_by_css_selector("#landingImage").get_attribute("src").split("_AC_")[0] + "_AC_SX650_.jpg"
-    except NoSuchElementException:
-        product.main_image = "not found"
-    driver.execute_script("window.scrollTo(0, 1080)")
-    time.sleep(1)
-    try:
-        description = driver.find_element_by_css_selector("#productDescription_feature_div")
-    except NoSuchElementException:
-        try:
-            description = driver.find_element_by_xpath("//*[@id='aplus']/div")
-        except NoSuchElementException:
-            description = "not found"
-    driver.execute_script("window.scrollTo(0, 0)")
-
-    # catch a list of bullet points as selenium element
-    try:
-        bullet_points = driver.find_element_by_css_selector("#feature-bullets").find_elements_by_tag_name("li")
-        if not bullet_points:
-            for i in range(6):
-                product.append_variant(" ", "bullet")
-        else:
-            for bp in bullet_points:
-                product.append_variant(bp.text, "bullet")
-    except:
-        for i in range(6):
-            product.append_variant("not found", "bullet")
-
-    # catch the description in html
-    try:
-        source_code = description.get_attribute("outerHTML")
-    except AttributeError:
-        source_code = description
-    product.description = source_code
 
     # base url to get variant itens
     products = driver.find_elements_by_class_name("swatchAvailable")
